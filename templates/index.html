@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thing</title>
+</head>
+<body>
+    <script type="module">
+        function send(x,y){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/data?jsondata="+JSON.stringify({"x": x, "y": y, "id": "{{id}}"}));
+            xhr.send();
+        }
+
+        //Everything below this (apart from the send function) was written by @TheShadowNinjaYT, so thanks!
+        import platypus from '/static/script.js';
+        //A platypus?
+        var perry = new platypus();
+        //PERRY the platpus!?
+        
+        function make_it_move(){
+            if(perry.position.x <= 0){
+              perry.vector.x = perry.vector.x * -1
+              console.log("hit")
+            }
+            if(perry.position.x >= 1000){
+              perry.vector.x = perry.vector.x * -1
+              console.log("hit")
+            }
+            if(perry.position.y <= 0){
+              perry.vector.y = perry.vector.y * -1
+              console.log("hit")
+            }
+            if(perry.position.y >= 500){
+              perry.vector.y = perry.vector.y * -1
+              console.log("hit")
+            }
+            perry.position.x += perry.vector.x
+            perry.position.y += perry.vector.y
+            console.log(perry.position.x);
+            console.log(perry.position.y);
+            console.log(perry.vector.x);
+            console.log(perry.vector.y);
+            send(perry.position.x,perry.position.y)
+        }
+        setInterval(make_it_move,2000)
+    </script>
+</body>
+</html>

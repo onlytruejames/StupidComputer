@@ -1,0 +1,25 @@
+<html>
+<body>
+    <script>
+        function doIt(){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/data");
+            xhr.send();
+            xhr.onload = function(){
+                response = this.responseText;
+                console.log(response);
+                var jsondata = JSON.parse(response);
+                for (thing in jsondata){
+                    var canvas = document.getElementById("canvas");
+                    var canvasWidth = canvas.width;
+                    var canvasHeight = canvas.height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.fillRect(jsondata[thing]["x"],jsondata[thing]["y"],2,2);
+                }
+            }
+        }
+        setInterval(doIt, 2000);
+    </script>
+    <canvas width="1000" height="500" style="
+    border: 1px solid black;" id="canvas"></canvas>
+</body></html>
